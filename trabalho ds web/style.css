@@ -1,0 +1,204 @@
+/* BDT – Busca do Tempo | style.css */
+
+/* --- RESET E CORES --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --fundo:   #0d1b2a;
+  --ciano:   #00c6ff;
+  --branco:  #f0f8ff;
+  --cinza:   #a8c4d8;
+  --chuva:   #4fc3f7;
+  --radius:  16px;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Outfit', sans-serif;
+  background: var(--fundo);
+  color: var(--branco);
+}
+
+/* --- TELAS (busca / resultado) ---
+   Só uma aparece por vez. O JS adiciona/remove .oculto e .ativa */
+.tela { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 20px; }
+.oculto { display: none !important; }
+.ativa  { display: flex !important; }
+
+/* --- LOGO --- */
+.logo-area { text-align: center; margin-bottom: 40px; }
+
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px, 15vw, 120px);
+  letter-spacing: 12px;
+  background: linear-gradient(135deg, var(--ciano), var(--branco));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo-sub { font-size: 13px; letter-spacing: 5px; text-transform: uppercase; color: var(--cinza); }
+
+/* --- CAIXA DE BUSCA --- */
+.busca-box { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 14px; }
+.instrucao { text-align: center; color: var(--cinza); font-size: 15px; }
+
+.input-grupo { display: flex; gap: 10px; }
+
+.input-grupo input {
+  flex: 1; padding: 15px 18px;
+  border-radius: var(--radius);
+  border: 1.5px solid rgba(0,198,255,0.3);
+  background: rgba(255,255,255,0.07);
+  color: var(--branco); font-family: 'Outfit', sans-serif; font-size: 16px;
+  outline: none; transition: border-color 0.2s;
+}
+.input-grupo input:focus { border-color: var(--ciano); }
+.input-grupo input::placeholder { color: var(--cinza); }
+
+#btn-buscar {
+  width: 54px; height: 54px; border-radius: 14px; border: none; flex-shrink: 0;
+  background: linear-gradient(135deg, #1e6fa5, var(--ciano));
+  font-size: 20px; cursor: pointer; transition: opacity 0.2s;
+}
+#btn-buscar:hover { opacity: 0.85; }
+
+#btn-localizacao {
+  padding: 13px; border-radius: var(--radius);
+  border: 1.5px solid rgba(0,198,255,0.2);
+  background: transparent;
+  color: var(--cinza); font-family: 'Outfit', sans-serif; font-size: 14px;
+  cursor: pointer; transition: color 0.2s, border-color 0.2s;
+}
+#btn-localizacao:hover { color: var(--branco); border-color: var(--ciano); }
+
+/* --- ERRO --- */
+.msg-erro {
+  background: rgba(255,100,100,0.12);
+  border: 1px solid rgba(255,100,100,0.35);
+  color: #ff9090; border-radius: 12px;
+  padding: 11px 16px; font-size: 14px; text-align: center;
+}
+
+/* --- HISTÓRICO --- */
+.historico-area {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius); padding: 14px;
+  background: rgba(255,255,255,0.03);
+}
+.historico-titulo { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: var(--cinza); margin-bottom: 8px; }
+.historico-item { padding: 8px 10px; border-radius: 8px; cursor: pointer; font-size: 14px; color: var(--cinza); transition: background 0.2s; }
+.historico-item:hover { background: rgba(0,198,255,0.1); color: var(--branco); }
+
+#btn-limpar-historico {
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--cinza);
+  border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#btn-limpar-historico:hover {
+  background: rgba(255, 100, 100, 0.1);
+  border-color: rgba(255, 100, 100, 0.3);
+  color: #ff9090;
+}
+
+/* --- TELA DE RESULTADO --- */
+#tela-resultado { display: none; padding: 24px 20px; justify-content: flex-start; }
+#tela-resultado.ativa { display: flex !important; flex-direction: column; align-items: center; }
+
+.btn-voltar {
+  width: 100%; max-width: 500px; margin-bottom: 20px;
+  padding: 10px 16px; border-radius: 12px; text-align: left;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: var(--branco); font-family: 'Outfit', sans-serif; font-size: 14px;
+  cursor: pointer; transition: background 0.2s;
+}
+.btn-voltar:hover { background: rgba(255,255,255,0.1); }
+
+/* Card principal */
+.resultado-card {
+  width: 100%; max-width: 500px;
+  background: linear-gradient(150deg, rgba(30,111,165,0.4), rgba(13,27,42,0.8));
+  border: 1px solid rgba(0,198,255,0.18);
+  border-radius: 24px; padding: 28px 24px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+}
+
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+.card-header h2 { font-size: 24px; font-weight: 700; }
+.card-header p  { font-size: 13px; color: var(--cinza); margin-top: 3px; }
+.icone-grande   { font-size: 56px; line-height: 1; }
+
+/* Temperatura em destaque */
+.temp-principal { display: flex; align-items: flex-start; }
+#res-temp {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(80px, 18vw, 110px); line-height: 1;
+  background: linear-gradient(120deg, #fff 40%, var(--ciano));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.unidade { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: var(--ciano); margin-top: 14px; }
+.descricao-clima { font-size: 15px; color: var(--cinza); margin-bottom: 16px; }
+
+/* Alerta de chuva */
+.alerta-chuva {
+  display: flex; align-items: center; gap: 10px;
+  border: 1px solid rgba(79,195,247,0.35);
+  border-radius: 12px; padding: 11px 16px; margin-bottom: 18px;
+  font-size: 14px; font-weight: 600; color: var(--chuva);
+  background: rgba(79,195,247,0.08);
+}
+
+/* Grade 4 detalhes */
+.detalhes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 22px; }
+.detalhe-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px; padding: 13px 14px;
+  display: flex; flex-direction: column; gap: 3px;
+}
+.detalhe-icone { font-size: 20px; }
+.detalhe-label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--cinza); }
+.detalhe-valor { font-size: 18px; font-weight: 700; }
+
+/* Previsão 3 dias */
+.previsao-titulo { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: var(--cinza); margin-bottom: 10px; }
+.previsao-lista  { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; }
+.previsao-item {
+  flex: 0 0 auto; min-width: 85px; text-align: center;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px; padding: 11px 14px;
+}
+.prev-dia  { font-size: 11px; text-transform: uppercase; color: var(--cinza); margin-bottom: 5px; }
+.prev-icon { font-size: 24px; margin-bottom: 5px; }
+.prev-max  { font-size: 16px; font-weight: 700; }
+.prev-min  { font-size: 13px; color: var(--cinza); }
+
+/* Loading */
+.tela-loading {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(13,27,42,0.88);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 18px; font-size: 15px; color: var(--cinza);
+}
+.spinner {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 4px solid rgba(0,198,255,0.15);
+  border-top-color: var(--ciano);
+  animation: girar 0.8s linear infinite;
+}
+@keyframes girar { to { transform: rotate(360deg); } }

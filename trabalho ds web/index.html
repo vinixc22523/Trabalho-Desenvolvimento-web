@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BDT – Busca do Tempo</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ==============================
+    TELA 1: BUSCA
+    Aparece quando o usuário abre o site
+  ============================== -->
+  <div id="tela-busca" class="tela ativa">
+
+    <!-- Logo do site -->
+    <header class="logo-area">
+      <h1 class="logo">BDT</h1>
+      <p class="logo-sub">Busca do Tempo</p>
+    </header>
+
+    <!-- Caixa de pesquisa -->
+    <main class="busca-box">
+      <p class="instrucao">Digite sua cidade e descubra o clima agora</p>
+
+      <!-- Campo de texto + botão buscar -->
+      <div class="input-grupo">
+        <input type="text" id="input-cidade" placeholder="Ex: Curitiba, São Paulo..." autocomplete="off"/>
+        <button id="btn-buscar" onclick="buscarTempo()">🔍</button>
+      </div>
+
+      <!-- Botão para usar GPS do aparelho -->
+      <button id="btn-localizacao" onclick="usarLocalizacao()">
+           Usar localizaçao atual 
+      </button>
+
+      <!-- Mensagem de erro (fica oculta até ter erro) -->
+      <div id="msg-erro" class="msg-erro oculto"></div>
+
+      <!-- Histórico de buscas recentes -->
+      <div id="historico-area" class="historico-area oculto">
+        <p class="historico-titulo">Buscas recentes</p>
+        <div id="historico-lista"></div>
+        <button id="btn-limpar-historico" onclick="limparHistorico()">Limpar histórico</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- ==============================
+    TELA 2: RESULTADO
+    Aparece depois da busca
+  ============================== -->
+  <div id="tela-resultado" class="tela oculto">
+
+    <!-- Botão para voltar à busca -->
+    <button class="btn-voltar" onclick="voltarBusca()">← Voltar</button>
+
+    <!-- Card com todos os dados do clima -->
+    <div class="resultado-card">
+
+      <!-- Cidade + data + emoji do clima -->
+      <div class="card-header">
+        <div>
+          <h2 id="res-cidade">--</h2>
+          <p id="res-data">--</p>
+        </div>
+        <div class="icone-grande" id="res-icone">☀️</div>
+      </div>
+
+      <!-- Temperatura em destaque -->
+      <div class="temp-principal">
+        <span id="res-temp">--</span><span class="unidade">°C</span>
+      </div>
+      <p class="descricao-clima" id="res-descricao">--</p>
+
+      <!-- Alerta de chuva (só aparece se for chover) -->
+      <div id="alerta-chuva" class="alerta-chuva oculto">
+        🌧️ <span id="texto-alerta">Chuva prevista hoje!</span>
+      </div>
+
+      <!-- Grade com 4 informações extras -->
+      <div class="detalhes-grid">
+        <div class="detalhe-card">
+          <span class="detalhe-icone">🌡️</span>
+          <span class="detalhe-label">Sensação</span>
+          <span class="detalhe-valor" id="res-sensacao">--</span>
+        </div>
+        <div class="detalhe-card">
+          <span class="detalhe-icone">💧</span>
+          <span class="detalhe-label">Umidade</span>
+          <span class="detalhe-valor" id="res-umidade">--</span>
+        </div>
+        <div class="detalhe-card">
+          <span class="detalhe-icone">💨</span>
+          <span class="detalhe-label">Vento</span>
+          <span class="detalhe-valor" id="res-vento">--</span>
+        </div>
+        <div class="detalhe-card">
+          <span class="detalhe-icone">🌂</span>
+          <span class="detalhe-label">Chuva hoje</span>
+          <span class="detalhe-valor" id="res-chuva">--</span>
+        </div>
+      </div>
+
+      <!-- Previsão dos próximos 3 dias (preenchida pelo JS) -->
+      <div class="previsao-section">
+        <h3 class="previsao-titulo">Próximos dias</h3>
+        <div class="previsao-lista" id="previsao-lista"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==============================
+    LOADING
+    Aparece enquanto busca os dados
+  ============================== -->
+  <div id="tela-loading" class="tela-loading oculto">
+    <div class="spinner"></div>
+    <p>Buscando dados do clima...</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
